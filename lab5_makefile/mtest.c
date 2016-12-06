@@ -1,5 +1,5 @@
 //mtest.c
-
+#include "test.h"
 int main() {
 	int boo = 2;
 	int val = 0;
