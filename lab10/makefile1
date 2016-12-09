@@ -1,0 +1,5 @@
+executefileGenerate : 
+	gcc -o ipc_consumer ipc_consumer.c
+	gcc -o ipc_producer ipc_producer.c
+
+
