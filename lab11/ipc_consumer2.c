@@ -15,8 +15,6 @@ int main(int argc, char *argv[]) {
 	int consumerPid;
 	pid_t pid;
 
-//	sscanf(argv[1], "%d", &prodPid);
-
 	shmid = shmget((key_t)1234, 20 , 0666 | IPC_CREAT); // 공유 메모리 생성
 	if ( shmid < 0 ) {
 		fprintf(stderr, "shmget failed\n");
@@ -24,19 +22,19 @@ int main(int argc, char *argv[]) {
 	} // 공유메모리 생성 실패
 
 	shared_memory = shmat(shmid, NULL , 0);
-	if ( shared_memory == (void *)-1 ) {
+	if ( shared_memory == -1 ) {
 		fprintf(stderr, "shmat failed\n");
 		return -1;
 	}
 
 	// printf("생성된 공유메모리 주소 :: %X\n", (int)shared_memory);
 	
-	//printf("ipc_consumer2에서.. \n");
+	printf("ipc_consumer2에서.. \n");
 	printf("producer -> consumer :: ");
 	for ( shared_stuff = shared_memory ; *shared_stuff != NULL ; shared_stuff++) {
 		// 공유메모리를 참조한 곳을 shared_stuff가 받아서 가리키는 곳의 끝까지
 		putchar(*shared_stuff);
-		if ( *shared_stuff == ',' || ( (i > 0) && (i <= 12) ) ) { // 열두자리의  학번 추출
+		if ( *shared_stuff == ',' || ( (i > 0) && (i <= IDLENGTH) ) ) { // 열두자리의  학번 추출
 			myId[i++ - 1] = *shared_stuff; // myId에다가 필요한 정보들을 쏙쏙 넣음
 		}
 	}
