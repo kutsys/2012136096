@@ -23,7 +23,7 @@ int main() {
 	
 	shared_memory = shmat(shmid, NULL, 0);
 	// 공유메모리 접속, 읽기/쓰기 모드로 생성
-	if (shared_memory == (void *)-1) {
+	if (shared_memory == -1) {
 		fprintf(stderr, "shmat failed\n");
 		return -1;
 	} // 공유메모리 접속 실패
@@ -52,13 +52,12 @@ int main() {
 			myId = shared_memory; // myId 포인터를 공유메모리에 연결
 			sprintf(myId, "%d,2012136096", producerPid);
 			// myId에 producer pid값이랑 학번 집어넣음
-			myId = NULL; // myId 해제
 			execl(PATH, "ipc_consumer2", NULL, NULL); // 실행파일 이름 넘기구
 			printf("execl failed\n");
 		}
 		else { // 부모프로세스에서의 처리
 			sleep(2);
-		
+			printf("In Producer..\n");
 			printf("consumer -> producer :: ");
 			for ( shared_stuff = shared_memory ; *shared_stuff != NULL ; shared_stuff++ ) {
 				putchar(*shared_stuff);
@@ -69,6 +68,7 @@ int main() {
 	
 	*shared_memory = '*';
 	
+	myId = NULL; // myId 해제
 	// 공유메모리 해제
 	if ( shmdt(shared_memory) == -1 ) {
 		fprintf(stderr, "shmdt failed\n");
