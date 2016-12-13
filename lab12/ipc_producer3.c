@@ -59,6 +59,7 @@ int main() {
 				fprintf(stderr, "메세지 수신 실패\n");
 				return -1;
 			} // 메세지 수신 실패
+			printf("ipc_producer3에서.. \n");
 			printf("Consumer->Producer :: %s,", receiveName.text);
 			printf("%s\n", myId.text);	
 		}
