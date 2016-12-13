@@ -30,6 +30,7 @@ int main() {
 			fprintf(stderr, "메세지 수신 실패\n");
 			return -1;
 		}
+		printf("ipc_consumer3에서.. \n");
 		printf("Producer->Consumer :: %s\n", receiveId.text);
 		running = 2;
 		// 메세지 발신으로 이동
@@ -39,19 +40,11 @@ int main() {
 		myId = strtok(receiveId.text, ", ");
 		myName.msgType = 1;
 		sprintf(myName.text, "%d,wooyo", getpid());
-//		strcpy(myName.text, "wooyo"); // 내 이름 지정
 		if ( msgsnd(msgid, (void *)&myName, MAXTEXT, 0) == -1) {
 			// 메세지 발신하기 
 			fprintf(stderr, "메세지 발신 실패\n");
 			return -1;
 		} // 메세지 발신 실패
 	}
-/*
-	if (msgctl(msgid, IPC_RMID, 0) == -1) {
-		fprintf(stderr, "메세지 삭제 완료\n");
-		return -1;
-	}
-*/
-	// 메세지 대기열 삭제 연산
 	return 0;
 }
