@@ -57,7 +57,7 @@ int main() {
 		}
 		else { // 부모프로세스에서의 처리
 			sleep(2);
-			printf("In Producer..\n");
+			printf("ipc_producer2에서.. \n");
 			printf("consumer -> producer :: ");
 			for ( shared_stuff = shared_memory ; *shared_stuff != NULL ; shared_stuff++ ) {
 				putchar(*shared_stuff);
